@@ -1,12 +1,13 @@
 package
 {
-	import flash.display.Sprite;
+	import net.flashpunk.Engine;
 	
-	public class mewsic extends Sprite
+	
+	public class Mewsic extends Engine
 	{
-		public function mewsic()
+		public function Mewsic()
 		{
-			
+			super(800, 600, 60, false);
 		}
 	}
 }
