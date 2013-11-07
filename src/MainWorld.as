@@ -51,22 +51,13 @@ package
 					var diff:Vec2 = Vec2.diff(playerP, loc);
 					
 					if(diff.abs() > C.HEARING_RADIUS){
-						c.wandering = 1;
-						c.hasDestination = 0;
-						
+						c.decreaseAttention();
 					}
 					else{
 						if(c.happy_points <= C.HAPPY_METER_MAX){
-							c.wandering = 0;
-							c.hasDestination = 1;
 							
-							c.destination = playerP;
-							c.increaseHappy();
-							if(c.happy_points > C.HAPPY_METER_MAX){
-								c.wandering = 1;
-								c.hasDestination=0;
+							c.chargeAttention(playerP);
 							
-							}
 						}
 						
 					}

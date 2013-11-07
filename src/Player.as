@@ -59,18 +59,15 @@ package
 			{
 				x-=C.PLAYER_SPEED;
 			}
-			
-			
-			
-			x%= Mewsic.WIDTH;
-			y%= Mewsic.HEIGHT;
+			x%= C.MAP_WIDTH;
+			y%= C.MAP_HEIGHT;
 			
 			if(x <=0){
-				x = Mewsic.WIDTH;
+				x = C.MAP_WIDTH;
 			}
 			
 			if(y <=0){
-				y = Mewsic.HEIGHT;
+				y = C.MAP_HEIGHT;
 			}
 		
 		}

@@ -5,11 +5,9 @@ package
 	public class Mewsic extends Engine
 	{
 		public static var INSTANCE:Mewsic;
-		public static var WIDTH:int = 800;
-		public static var HEIGHT:int = 600;
 		public function Mewsic()
 		{
-			super(WIDTH, HEIGHT, 60, false);
+			super(C.GAME_WIDTH, C.GAME_HEIGHT, 60, false);
 			FP.world = new MainWorld;
 			INSTANCE = this;
 		}

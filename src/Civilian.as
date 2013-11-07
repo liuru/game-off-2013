@@ -13,16 +13,21 @@ package
 		
 		//0 means listening, 1 means wandering
 		public var wandering:int = 1;
+		
+		//time it takes to transition between listening and wandering
+		public var reflexTime:int = C.REFLEX_TIME;
+		
 		//unhappypoints
 		public var happy_points:int = 0;
 		public var happy_cooldown:int = C.HAPPY_COOLDOWN;	
+		
 		
 		public var destination:Vec2 = new Vec2(200,200);
 		public function Civilian (x:Number=0, y:Number=0, graphic:Graphic=null, mask:Mask=null)
 		{
 			direction = FP.rand(4);
-			x = FP.rand(Mewsic.WIDTH);
-			y = FP.rand(Mewsic.HEIGHT);
+			x = FP.rand(C.MAP_WIDTH);
+			y = FP.rand(C.MAP_HEIGHT);
 			super(x, y, graphic, mask);
 		}
 		override public function update():void
@@ -60,6 +65,37 @@ package
 			}
 		
 		}
+	
+		
+		//charges attention towards a point of interest
+		public function chargeAttention(poi:Vec2):void{
+			
+			//the person stops, but does not move towards the destination until the period wears off
+			if(reflexTime > 0){
+				reflexTime -=1;
+				wandering = 0;
+			}
+			else{
+			
+				hasDestination = 1;
+				
+				destination = poi;
+				increaseHappy();
+				if(happy_points > C.HAPPY_METER_MAX){
+					wandering = 1;
+					hasDestination=0;
+					
+				}
+			}
+				
+		}
+		public function decreaseAttention():void{
+			reflexTime = C.REFLEX_TIME;
+			
+			wandering = 1;
+			hasDestination = 0;
+		}
+		
 		
 		public function increaseHappy():void{
 			if(happy_points <= C.HAPPY_METER_MAX){
@@ -79,7 +115,7 @@ package
 			}
 			
 			diff.normalize();
-			diff.scale(C.CIVILLIAN_SPEED);
+			diff.scale(C.BESPELLED_SPEED);
 			x+=diff.x;
 			y+=diff.y;
 			
@@ -105,15 +141,15 @@ package
 				default:
 					y-=C.CIVILLIAN_SPEED;
 			}
-			x%= Mewsic.WIDTH;
-			y%= Mewsic.HEIGHT;
+			x%= C.MAP_WIDTH;
+			y%= C.MAP_HEIGHT;
 			
 			if(x <=0){
-				x = Mewsic.WIDTH;
+				x = C.MAP_WIDTH;
 			}
 			
 			if(y <=0){
-				y = Mewsic.HEIGHT;
+				y = C.MAP_HEIGHT;
 			}
 			
 		}

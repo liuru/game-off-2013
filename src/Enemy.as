@@ -12,8 +12,8 @@ package
 		public function Enemy(x:Number=0, y:Number=0, graphic:Graphic=null, mask:Mask=null)
 		{
 			direction = FP.rand(4);
-			x = FP.rand(Mewsic.WIDTH);
-			y = FP.rand(Mewsic.HEIGHT);
+			x = FP.rand(C.MAP_WIDTH);
+			y = FP.rand(C.MAP_HEIGHT);
 			super(x, y, graphic, mask);
 		}
 		override public function update():void
@@ -35,15 +35,15 @@ package
 					default:
 						y-=C.GUARD_SPEED;
 				}
-			x%= Mewsic.WIDTH;
-			y%= Mewsic.HEIGHT;
+			x%= C.MAP_WIDTH;
+			y%= C.MAP_HEIGHT;
 			
 			if(x <=0){
-				x = Mewsic.WIDTH;
+				x = C.MAP_WIDTH;
 			}
 			
 			if(y <=0){
-				y = Mewsic.HEIGHT;
+				y = C.MAP_HEIGHT;
 			}
 			
 		}
