@@ -10,6 +10,8 @@ package
 	public class Player extends Entity
 	{
 		
+		
+		public var singing:int;
 		public function Player(x:Number=0, y:Number=0, graphic:Graphic=null, mask:Mask=null)
 		{
 			x = 400;
@@ -21,24 +23,45 @@ package
 		
 		override public function update():void
 		{
+			sing();
+			if(singing == 0){
+				move();
+			}
+		
+		}
+		
+		public function sing():void{
+			if (Input.check(Key.SPACE))
+			{
+				singing = 1;
+			}
+			else{
+				singing = 0;
+			}
+		}
+		
+		public function move():void{
 			if (Input.check(Key.UP))
 			{
-				y-=7;
+				y-=C.PLAYER_SPEED;
 			}
 			if (Input.check(Key.DOWN))
 			{
-				y+=7;
+				y+=C.PLAYER_SPEED;
 			}
 			
 			if (Input.check(Key.RIGHT))
 			{
-				x+=7;
+				x+=C.PLAYER_SPEED;
 			}
 			
 			if (Input.check(Key.LEFT))
 			{
-				x-=7;
+				x-=C.PLAYER_SPEED;
 			}
+			
+			
+			
 			x%= Mewsic.WIDTH;
 			y%= Mewsic.HEIGHT;
 			
@@ -49,13 +72,20 @@ package
 			if(y <=0){
 				y = Mewsic.HEIGHT;
 			}
+		
 		}
+		
 		override public function render():void
 		{
 			super.render();
+			if(singing == 0){
+				Draw.circle(x, y, C.PLAYER_RADIUS, 0x00FF00);
+			}
+			else{
+				
+				Draw.circle(x, y, C.PLAYER_RADIUS, 0xF0F0F0);
 			
-			Draw.circle(x, y, 30, 0x00FF00);
-			
+			}
 		}
 		
 		

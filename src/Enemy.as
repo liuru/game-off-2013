@@ -24,16 +24,16 @@ package
 			switch(direction)
 				{
 					case 0:
-						x+=5;
+						x+=C.GUARD_SPEED;
 						break;
 					case 2:
-						y+=5;
+						y+=C.GUARD_SPEED;
 						break;
 					case 3:
-						x-=5;
+						x-=C.GUARD_SPEED;
 						break;
 					default:
-						y-=5;
+						y-=C.GUARD_SPEED;
 				}
 			x%= Mewsic.WIDTH;
 			y%= Mewsic.HEIGHT;
@@ -51,7 +51,7 @@ package
 		{
 			super.render();
 			
-			Draw.circle(x, y, 30, 0xF00F00);
+			Draw.circle(x, y, C.PLAYER_RADIUS, 0xF00F00);
 			
 		}
 		
