@@ -22,7 +22,7 @@ package
 		//how much time it takes for civilians to transfer from wandering to not wandering
 		public static var REFLEX_TIME:int = 20;
 		
-		public static var PLAYER_SPEED:int = 7;
+		public static var PLAYER_SPEED:Number = 300;
 		public static var GUARD_SPEED:int = 5;
 		public static var CIVILLIAN_SPEED:int = 4;
 		

@@ -1,74 +1,38 @@
 package
 {
 	import net.flashpunk.Entity;
+	import net.flashpunk.FP;
 	import net.flashpunk.Graphic;
 	import net.flashpunk.Mask;
 	import net.flashpunk.utils.Draw;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	
+	
 	public class Player extends Entity
 	{
 		
-		
 		public var singing:int;
 		public var coins: int;
-		public function Player(x:Number=0, y:Number=0, graphic:Graphic=null, mask:Mask=null)
+		public function Player()
 		{
 			x = 400;
 			y = 200;
-			super(x, y, graphic, mask);
+			type = "player";
 			setHitbox(C.PLAYER_RADIUS*2, C.PLAYER_RADIUS*2);
+			
 		
 		}
 		
 		override public function update():void
 		{
-			sing();
-			if(singing == 0){
-				move();
-			}
-		
-		}
-		
-		public function sing():void{
-			if (Input.check(Key.SPACE))
-			{
+			if (Input.mouseDown) {
 				singing = 1;
-			}
-			else{
+			} else {
 				singing = 0;
 			}
-		}
-		
-		public function move():void{
-			if (Input.check(Key.UP))
-			{
-				y-=C.PLAYER_SPEED;
-			}
-			if (Input.check(Key.DOWN))
-			{
-				y+=C.PLAYER_SPEED;
-			}
-			
-			if (Input.check(Key.RIGHT))
-			{
-				x+=C.PLAYER_SPEED;
-			}
-			
-			if (Input.check(Key.LEFT))
-			{
-				x-=C.PLAYER_SPEED;
-			}
-			x%= C.MAP_WIDTH;
-			y%= C.MAP_HEIGHT;
-			
-			if(x <=0){
-				x = C.MAP_WIDTH;
-			}
-			
-			if(y <=0){
-				y = C.MAP_HEIGHT;
+			if(singing == 0){
+				this.moveTowards(FP.world.mouseX, FP.world.mouseY, FP.elapsed*C.PLAYER_SPEED, ["human", "wall"]);
 			}
 		
 		}

@@ -10,20 +10,17 @@ package
 	{
 		public var direction:int;
 		public var lineOfSight: LineOfSight;
-		public function Enemy(x:Number=0, y:Number=0, graphic:Graphic=null, mask:Mask=null)
-		{
+		public function Enemy() {
 			direction = FP.rand(4);
 			x = FP.rand(C.MAP_WIDTH);
 			y = FP.rand(C.MAP_HEIGHT);
 			lineOfSight = new LineOfSight(this);
-			super(x, y, graphic, mask);
+			type = "human";
 		}
 		override public function update():void
 		{
 			if(Math.random()<0.01){
 				direction = FP.rand(4);
-				
-				
 			}
 			
 			//TODO: REFACTOR. OMG SO BAD
