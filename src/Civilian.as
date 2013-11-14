@@ -23,12 +23,13 @@ package
 		
 		
 		public var destination:Vec2 = new Vec2(200,200);
-		public function Civilian (x:Number=0, y:Number=0, graphic:Graphic=null, mask:Mask=null)
+		public function Civilian ()
 		{
 			direction = FP.rand(4);
 			x = FP.rand(C.MAP_WIDTH);
 			y = FP.rand(C.MAP_HEIGHT);
-			super(x, y, graphic, mask);
+			setHitbox(C.PLAYER_RADIUS*2, C.PLAYER_RADIUS*2);
+			type = "human"
 		}
 		override public function update():void
 		{
@@ -160,13 +161,12 @@ package
 		
 		override public function render():void
 		{
-			super.render();
+			Draw.circlePlus(x, y, (happy_points / C.HAPPY_METER_MAX) * C.PLAYER_RADIUS)
 			
 			if(happy_points < C.HAPPY_METER_MAX){
 				Draw.circle(x, y, C.PLAYER_RADIUS, 0x0000FF);
 			}
 			else{
-			
 				Draw.circle(x, y, C.PLAYER_RADIUS, 0xF0F00F);
 			}
 			

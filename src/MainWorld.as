@@ -1,5 +1,6 @@
 package
 {
+	import net.flashpunk.FP;
 	import net.flashpunk.World;
 	
 	public class MainWorld extends World
@@ -11,25 +12,25 @@ package
 		internal var counter:int = 0;
 		public function MainWorld()
 		{
-			super();
+			FP.console.enable();
 			
 			player = new Player();
-			
-			for(var i:int = 0; i < 2; i++){
-				enemies.push(new Enemy());
-			}
-			for(i = 0; i < 9; i++){
-				civilians.push(new Civilian());
-			}
 			add(player);
 			
-			for each(var e:Enemy in enemies){
-				
-				add(e);
+			for(var i:int = 0; i < 2; i++){
+				enemies.push(this.add(new Enemy()));
 			}
-			for each(var c:Civilian in civilians){
-				add(c);
+			for(i = 0; i < 9; i++){
+				civilians.push(this.add(new Civilian()));
 			}
+			
+			for(var x: int = 0; x < 40; x++ )
+			for(var y: int = 0; y < 30; y++ ) {
+				if(FP.random < 0.05) {
+					add(new Wall(x*20, y*20));
+				}
+			}
+			
 			
 		}
 		
@@ -54,18 +55,11 @@ package
 					}
 					else{
 						if(c.happy_points <= C.HAPPY_METER_MAX){
-							
 							c.chargeAttention(playerP, player);
 						}
-						
 					}
 				}
 			}
 		}
-		
-		
-		
-		
-		
 	}
 }
