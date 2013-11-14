@@ -3,15 +3,16 @@ package
 	import net.flashpunk.Entity;
 	import net.flashpunk.Graphic;
 	import net.flashpunk.Mask;
+	import net.flashpunk.utils.Draw;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
-	import net.flashpunk.utils.Draw;
 	
 	public class Player extends Entity
 	{
 		
 		
 		public var singing:int;
+		public var coins: int;
 		public function Player(x:Number=0, y:Number=0, graphic:Graphic=null, mask:Mask=null)
 		{
 			x = 400;
@@ -72,6 +73,10 @@ package
 		
 		}
 		
+		public function getCoins(i:int):void{
+			coins+=i;
+		}
+		
 		override public function render():void
 		{
 			super.render();
@@ -84,6 +89,7 @@ package
 			
 			}
 		}
+		
 		
 		
 	}

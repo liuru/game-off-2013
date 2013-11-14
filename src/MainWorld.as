@@ -43,8 +43,7 @@ package
 			for each(var c:Civilian in civilians){
 				
 				if(player.singing == 0){
-					c.wandering = 1;
-					c.hasDestination = 0;
+					c.decreaseAttention();
 				}
 				else {
 					var loc:Vec2 = new Vec2(c.x, c.y);
@@ -56,8 +55,7 @@ package
 					else{
 						if(c.happy_points <= C.HAPPY_METER_MAX){
 							
-							c.chargeAttention(playerP);
-							
+							c.chargeAttention(playerP, player);
 						}
 						
 					}

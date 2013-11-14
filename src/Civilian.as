@@ -58,7 +58,7 @@ package
 			}
 			else{
 				//if I'm not listening to music
-				if(wandering != 0){
+				if(wandering == 1){
 					happy_points--;
 					happy_points = Math.max(0, happy_points);
 				}
@@ -68,10 +68,11 @@ package
 	
 		
 		//charges attention towards a point of interest
-		public function chargeAttention(poi:Vec2):void{
+		public function chargeAttention(poi:Vec2,p:Player):void{
+			
 			
 			//the person stops, but does not move towards the destination until the period wears off
-			if(reflexTime > 0){
+			if(reflexTime >= 0){
 				reflexTime -=1;
 				wandering = 0;
 			}
@@ -82,7 +83,9 @@ package
 				destination = poi;
 				increaseHappy();
 				if(happy_points > C.HAPPY_METER_MAX){
-					wandering = 1;
+					//the player got a coin
+					p.getCoins(1);
+					
 					hasDestination=0;
 					
 				}
@@ -90,10 +93,13 @@ package
 				
 		}
 		public function decreaseAttention():void{
-			reflexTime = C.REFLEX_TIME;
-			
-			wandering = 1;
-			hasDestination = 0;
+			if(reflexTime < C.REFLEX_TIME){
+			reflexTime += 1;
+				if(reflexTime >=C.REFLEX_TIME){
+					wandering = 1;
+					hasDestination = 0;
+				}
+			}
 		}
 		
 		

@@ -14,7 +14,7 @@ package
 		public static var SIGHT_RADIUS:int = 10;
 		
 		//how much time it takes to get unhappy;
-		public static var HAPPY_COOLDOWN:int = 150;
+		public static var HAPPY_COOLDOWN:int = 250;
 		
 		//how much time it takes to get happy;
 		public static var HAPPY_METER_MAX:int = 50;
