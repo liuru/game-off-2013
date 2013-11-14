@@ -49,7 +49,7 @@ package
 					var loc:Vec2 = new Vec2(c.x, c.y);
 					var diff:Vec2 = Vec2.diff(playerP, loc);
 					
-					if(diff.abs() > C.HEARING_RADIUS){
+					if(diff.abs() > C.HEARING_RADIUS|| c.happy_points > C.HAPPY_METER_MAX){
 						c.decreaseAttention();
 					}
 					else{

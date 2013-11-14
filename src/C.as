@@ -11,7 +11,7 @@ package
 		public static var SINGING_RADIUS:int = 50;
 		public static var HEARING_RADIUS:int = 100;
 		public static var PLAYER_RADIUS:int = 10;
-		public static var SIGHT_RADIUS:int = 10;
+		public static var SIGHT_RADIUS:int = 40;
 		
 		//how much time it takes to get unhappy;
 		public static var HAPPY_COOLDOWN:int = 250;

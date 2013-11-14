@@ -27,8 +27,15 @@ package
 		}
 		
 		public function scale(k:Number):void{
+			
 			x = x*k;
 			y = y*k;
+		}
+		public function rotate(theta:Number):void{
+			var tempX:Number = x*Math.cos(theta) - y * Math.sin(theta);
+			var tempY:Number = x*Math.sin(theta) + y * Math.cos(theta);
+			x = tempX;
+			y = tempY;
 		}
 		
 		
@@ -41,6 +48,8 @@ package
 			
 			return new Vec2(a.x - b.x, a.y - b.y);
 		}
+		
+		
 		
 		
 	}

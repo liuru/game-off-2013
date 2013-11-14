@@ -133,20 +133,18 @@ package
 			if(Math.random()<0.01){
 				direction = FP.rand(4);
 			}
-			switch(direction)
-			{
-				case 0:
-					x+=C.CIVILLIAN_SPEED;
-					break;
-				case 2:
-					y+=C.CIVILLIAN_SPEED;
-					break;
-				case 3:
-					x-=C.CIVILLIAN_SPEED;
-					break;
-				default:
-					y-=C.CIVILLIAN_SPEED;
-			}
+			
+			
+			var unit:Vec2 = new Vec2(1, 0);
+			unit.scale(C.CIVILLIAN_SPEED);
+			
+			//TODO: refactor direction to be stored in this class
+			
+			unit.rotate(-Math.PI/2*direction);
+			
+			x +=unit.x;
+			y +=unit.y;
+			
 			x%= C.MAP_WIDTH;
 			y%= C.MAP_HEIGHT;
 			

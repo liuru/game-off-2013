@@ -18,7 +18,7 @@ package
 			x = 400;
 			y = 200;
 			super(x, y, graphic, mask);
-			
+			setHitbox(C.PLAYER_RADIUS*2, C.PLAYER_RADIUS*2);
 		
 		}
 		
@@ -81,13 +81,15 @@ package
 		{
 			super.render();
 			if(singing == 0){
-				Draw.circle(x, y, C.PLAYER_RADIUS, 0x00FF00);
+				Draw.circle(x + C.PLAYER_RADIUS, y + C.PLAYER_RADIUS, C.PLAYER_RADIUS, 0x00FF00);
 			}
 			else{
 				
-				Draw.circle(x, y, C.PLAYER_RADIUS, 0xF0F0F0);
+				Draw.circle(x + C.PLAYER_RADIUS, y + C.PLAYER_RADIUS, C.PLAYER_RADIUS, 0xF0F0F0);
 			
 			}
+			
+			Draw.hitbox(this);
 		}
 		
 		
