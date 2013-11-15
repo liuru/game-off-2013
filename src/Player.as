@@ -27,6 +27,7 @@ package
 		
 		override public function update():void
 		{
+			
 			if (Input.mouseDown) {
 				singing = 1;
 			} else {

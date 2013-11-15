@@ -38,7 +38,7 @@ package
 			y = tempY;
 		}
 		
-		public function copy(){
+		public function copy():Vec2{
 			return new Vec2(x, y);
 		}
 		

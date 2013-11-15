@@ -23,11 +23,14 @@ package
 		public static var REFLEX_TIME:int = 20;
 		
 		public static var PLAYER_SPEED:Number = 800;
-		public static var GUARD_SPEED:int = 500;
-		public static var CIVILLIAN_SPEED:int = 500;
+		public static var GUARD_SPEED:int = 400;
+		public static var CIVILLIAN_SPEED:int = 300;
 		
 		//people move slower when they are following musicmews
 		public static var BESPELLED_SPEED:int = 80;
+		
+		//how long police will follow you 
+		public static var AGGRO_COOLDOWN:int = 50;
 		
 	}
 }
