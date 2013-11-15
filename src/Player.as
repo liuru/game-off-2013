@@ -9,13 +9,14 @@ package
 	import net.flashpunk.utils.Key;
 	
 	
-	public class Player extends Entity
+	public class Player extends Unit
 	{
 		
 		public var singing:int;
 		public var coins: int;
 		public function Player()
 		{
+			super();
 			x = 400;
 			y = 200;
 			type = "player";

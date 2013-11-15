@@ -7,34 +7,23 @@ package
 	import net.flashpunk.Graphic;
 	import net.flashpunk.Mask;
 	
-	public class LineOfSight extends Entity
+	public class LineOfSight
 	{
 		
 		public var theta:Number;
 		//TODO: refactor this to be general for player, civ, and enemies
 		public var enemy:Enemy;
 		
-		public function LineOfSight( e:Enemy, x:Number=0, y:Number=0, graphic:Graphic=null, mask:Mask=null)
+		public function LineOfSight( e:Enemy)
 		{
 			this.enemy = e;
-			super(x, y, graphic, mask);
-			
 			
 		}
-		override public function update():void{
-			x = enemy.x;
-			y = enemy.y;
-		}
-		override public function render():void{
-			var unit:Vec2 = new Vec2(C.SIGHT_RADIUS, 0);
+	 	public function render():void{
+			var dir:Vec2 = enemy.direction.copy();
+			dir.normalize();
+			Draw.line(enemy.x, enemy.y, enemy.x + dir.x * C.SIGHT_RADIUS,enemy.y + dir.y * C.SIGHT_RADIUS); 
 			
-			//TODO: refactor direction to be stored in this class
-			
-			unit.rotate(-Math.PI/2*enemy.direction);
-			
-			
-			Draw.line(enemy.x, enemy.y, enemy.x +unit.x,enemy.y +unit.y); 
-		
 			
 		}
 

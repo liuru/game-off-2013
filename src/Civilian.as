@@ -6,9 +6,8 @@ package
 	import net.flashpunk.Mask;
 	import net.flashpunk.utils.Draw;
 	
-	public class Civilian extends Entity
+	public class Civilian extends Unit
 	{
-		public var direction:int;
 		public var hasDestination:int = 0;
 		
 		//0 means listening, 1 means wandering
@@ -25,17 +24,18 @@ package
 		public var destination:Vec2 = new Vec2(200,200);
 		public function Civilian ()
 		{
-			direction = FP.rand(4);
+			super();
 			x = FP.rand(C.MAP_WIDTH);
 			y = FP.rand(C.MAP_HEIGHT);
 			setHitbox(C.PLAYER_RADIUS*2, C.PLAYER_RADIUS*2);
-			type = "human"
+			this.speed = C.CIVILLIAN_SPEED;
+			direction.scale(speed);
 		}
 		override public function update():void
 		{
 			if(hasDestination == 0){
 				if(wandering == 1){
-					move();	
+					randomWalk();
 				}
 			}
 			else {
@@ -121,53 +121,23 @@ package
 				return;
 			}
 			
-			diff.normalize();
-			diff.scale(C.BESPELLED_SPEED);
-			x+=diff.x;
-			y+=diff.y;
-			
+		
+			this.moveTowards(destination.x, destination.y, FP.elapsed*C.BESPELLED_SPEED, ["human", "player", "wall"]);
 			
 		}
 		
-		public function move():void{
-		
-			if(Math.random()<0.01){
-				direction = FP.rand(4);
-			}
-			
-			
-			var unit:Vec2 = new Vec2(1, 0);
-			unit.scale(C.CIVILLIAN_SPEED);
-			
-			//TODO: refactor direction to be stored in this class
-			
-			unit.rotate(-Math.PI/2*direction);
-			
-			x +=unit.x;
-			y +=unit.y;
-			
-			x%= C.MAP_WIDTH;
-			y%= C.MAP_HEIGHT;
-			
-			if(x <=0){
-				x = C.MAP_WIDTH;
-			}
-			
-			if(y <=0){
-				y = C.MAP_HEIGHT;
-			}
-			
-		}
+	
 		
 		override public function render():void
 		{
-			Draw.circlePlus(x, y, (happy_points / C.HAPPY_METER_MAX) * C.PLAYER_RADIUS)
+			super.render();
+			Draw.circlePlus(x+C.PLAYER_RADIUS, y+C.PLAYER_RADIUS, (happy_points / C.HAPPY_METER_MAX) * C.PLAYER_RADIUS)
 			
 			if(happy_points < C.HAPPY_METER_MAX){
-				Draw.circle(x, y, C.PLAYER_RADIUS, 0x0000FF);
+				Draw.circle(x+C.PLAYER_RADIUS, y+C.PLAYER_RADIUS, C.PLAYER_RADIUS, 0x0000FF);
 			}
 			else{
-				Draw.circle(x, y, C.PLAYER_RADIUS, 0xF0F00F);
+				Draw.circle(x + C.PLAYER_RADIUS, y + C.PLAYER_RADIUS, C.PLAYER_RADIUS, 0xF0F00F);
 			}
 			
 		}

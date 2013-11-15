@@ -6,52 +6,26 @@ package
 	import net.flashpunk.Mask;
 	import net.flashpunk.utils.Draw;
 	
-	public class Enemy extends Entity
+	public class Enemy extends Unit
 	{
-		public var direction:int;
-		public var lineOfSight: LineOfSight;
 		public function Enemy() {
-			direction = FP.rand(4);
+			super();
+			
 			x = FP.rand(C.MAP_WIDTH);
 			y = FP.rand(C.MAP_HEIGHT);
 			lineOfSight = new LineOfSight(this);
 			type = "human";
+			this.speed = C.GUARD_SPEED;
+			direction.scale(speed);
 		}
 		override public function update():void
 		{
-			if(Math.random()<0.01){
-				direction = FP.rand(4);
-			}
-			
-			//TODO: REFACTOR. OMG SO BAD
-			var unit:Vec2 = new Vec2(1, 0);
-			unit.scale(C.GUARD_SPEED);
-			
-			//TODO: refactor direction to be stored in this class
-			
-			unit.rotate(-Math.PI/2*direction);
-			
-			
-			x +=unit.x;
-			y +=unit.y;
-			
-			x%= C.MAP_WIDTH;
-			y%= C.MAP_HEIGHT;
-			
-			if(x <=0){
-				x = C.MAP_WIDTH;
-			}
-			
-			if(y <=0){
-				y = C.MAP_HEIGHT;
-			}
-			lineOfSight.update();
+			randomWalk();
 		}
 		override public function render():void
-		{
-			super.render();
+		{	super.render();
 			lineOfSight.render();
-			Draw.circle(x, y, C.PLAYER_RADIUS, 0xF00F00);
+			Draw.circle(x + C.PLAYER_RADIUS, y + C.PLAYER_RADIUS, C.PLAYER_RADIUS, 0xF00F00);
 			
 		}
 		

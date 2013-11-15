@@ -38,6 +38,9 @@ package
 			y = tempY;
 		}
 		
+		public function copy(){
+			return new Vec2(x, y);
+		}
 		
 		public static function sum(a:Vec2, b:Vec2 ):Vec2{
 			
