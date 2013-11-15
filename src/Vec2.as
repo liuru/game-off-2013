@@ -23,7 +23,6 @@ package
 		
 		public function abs():Number{
 			return Math.sqrt(x*x + y*y);
-		
 		}
 		
 		public function scale(k:Number):void{
@@ -38,7 +37,7 @@ package
 			y = tempY;
 		}
 		
-		public function copy(){
+		public function copy():Vec2{
 			return new Vec2(x, y);
 		}
 		

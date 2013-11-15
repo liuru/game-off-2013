@@ -14,7 +14,6 @@ package
 			x = FP.rand(C.MAP_WIDTH);
 			y = FP.rand(C.MAP_HEIGHT);
 			lineOfSight = new LineOfSight(this);
-			type = "human";
 			this.speed = C.GUARD_SPEED;
 			direction.scale(speed);
 		}

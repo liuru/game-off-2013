@@ -5,7 +5,7 @@ package
 	
 	public class MainWorld extends World
 	{
-		
+		public var map:Array = new Array(C.MAP_TILE_WIDTH, C.MAP_TILE_HEIGHT);
 		internal var civilians:Array = [];
 		internal var enemies:Array = [];
 		internal var player:Player;
@@ -24,14 +24,14 @@ package
 				civilians.push(this.add(new Civilian()));
 			}
 			
-			for(var x: int = 0; x < 40; x++ )
-			for(var y: int = 0; y < 30; y++ ) {
-				if(FP.random < 0.05) {
-					add(new Wall(x*20, y*20));
+			var lvl = Level.getLevel1();
+			
+			for(var x: int = 0; x < C.GAME_WIDTH / C.TILE_SIZE; x++ )
+			for(var y: int = 0; y < C.GAME_HEIGHT / C.TILE_SIZE; y++ ) {
+				if(lvl.map[y][x] > 0) {
+					add(new Wall(x*C.TILE_SIZE, y*C.TILE_SIZE));
 				}
 			}
-			
-			
 		}
 		
 		

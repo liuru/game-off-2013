@@ -42,7 +42,6 @@ package
 		
 		public override function render():void{
 			super.render();
-			
 			Draw.hitbox(this);
 		}
 	

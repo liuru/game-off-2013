@@ -5,9 +5,15 @@ package
 		
 		public static var GAME_WIDTH:int = 800;
 		public static var GAME_HEIGHT:int = 600;
+		public static var TILE_SIZE:int = 20;
+
 		
 		public static var MAP_WIDTH:int = 800;
 		public static var MAP_HEIGHT:int = 600;
+	
+		public static var MAP_TILE_WIDTH:int = MAP_WIDTH/TILE_SIZE;
+		public static var MAP_TILE_HEIGHT:int = MAP_HEIGHT/TILE_SIZE;
+		
 		public static var SINGING_RADIUS:int = 50;
 		public static var HEARING_RADIUS:int = 100;
 		public static var PLAYER_RADIUS:int = 10;
@@ -22,9 +28,11 @@ package
 		//how much time it takes for civilians to transfer from wandering to not wandering
 		public static var REFLEX_TIME:int = 20;
 		
-		public static var PLAYER_SPEED:Number = 800;
-		public static var GUARD_SPEED:int = 500;
-		public static var CIVILLIAN_SPEED:int = 500;
+		
+		
+		public static var PLAYER_SPEED:Number = 100;
+		public static var GUARD_SPEED:int = 100;
+		public static var CIVILLIAN_SPEED:int = 100;
 		
 		//people move slower when they are following musicmews
 		public static var BESPELLED_SPEED:int = 80;
