@@ -26,6 +26,7 @@ package
 		override public function update():void
 		{
 			if (Input.mouseDown || Input.check(Key.SPACE)) {
+
 				singing = 1;
 			} else {
 				singing = 0;

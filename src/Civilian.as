@@ -29,7 +29,7 @@ package
 			y = FP.rand(C.MAP_HEIGHT);
 			setHitbox(C.PLAYER_RADIUS*2, C.PLAYER_RADIUS*2);
 			this.speed = C.CIVILLIAN_SPEED;
-			direction.scale(speed);
+			
 		}
 		override public function update():void
 		{

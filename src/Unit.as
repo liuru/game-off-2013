@@ -19,14 +19,23 @@ package
 		}
 		
 		public function randomWalk():void{
+			
+			
 			var dir:int;
 			if(Math.random()<0.01){
 				dir = FP.rand(4);
 			}
+			var w:Wall = collide("wall", x + direction.x*C.PLAYER_RADIUS, y + direction.y*C.PLAYER_RADIUS) as Wall;
+			if(w){
+				dir = FP.rand(2) + 1;
+				
+			}
 			
 			direction.rotate(-Math.PI/2*dir);
+			var directionScaled:Vec2 = direction.copy();
+			directionScaled.scale(speed);
 			
-			this.moveTowards(x+direction.x, y+direction.y, FP.elapsed*speed, ["human", "wall", "player"]);
+			this.moveTowards(x+directionScaled.x, y+directionScaled.y, FP.elapsed*speed, ["player"]);
 			
 			x%= C.MAP_WIDTH;
 			y%= C.MAP_HEIGHT;
@@ -44,7 +53,6 @@ package
 			super.render();
 			Draw.hitbox(this);
 		}
-	
 		
 		
 	}

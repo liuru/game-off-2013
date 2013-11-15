@@ -20,10 +20,21 @@ package
 			
 		}
 	 	public function render():void{
-			var dir:Vec2 = enemy.direction.copy();
-			dir.normalize();
-			Draw.line(enemy.x, enemy.y, enemy.x + dir.x * C.SIGHT_RADIUS,enemy.y + dir.y * C.SIGHT_RADIUS); 
 			
+			if(enemy.aggro == 0){
+				var dir:Vec2 = enemy.direction.copy();
+				dir.normalize();
+				
+				Draw.line(enemy.x + C.PLAYER_RADIUS, enemy.y + C.PLAYER_RADIUS, enemy.x + C.PLAYER_RADIUS + dir.x * C.SIGHT_RADIUS,enemy.y + C.PLAYER_RADIUS + dir.y * C.SIGHT_RADIUS); 
+			}
+			else{
+			
+				
+				var dirD:Vec2 = new Vec2(enemy.destination.x - enemy.x, enemy.destination.y - enemy.y);
+				dirD.normalize();
+				
+				Draw.line(enemy.x + C.PLAYER_RADIUS, enemy.y + C.PLAYER_RADIUS, enemy.x + C.PLAYER_RADIUS + dirD.x * C.SIGHT_RADIUS,enemy.y + C.PLAYER_RADIUS + dirD.y * C.SIGHT_RADIUS); 
+			}
 			
 		}
 
