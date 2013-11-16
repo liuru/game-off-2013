@@ -8,12 +8,8 @@ package
 	
 	public class Enemy extends Unit
 	{
-		public var aggro: int;
-		public var aggroCooldown: Number;
-		public var destination: Vec2;
 		public function Enemy() {
 			super();
-			aggro = 0;
 			x = FP.rand(C.MAP_WIDTH);
 			y = FP.rand(C.MAP_HEIGHT);
 			lineOfSight = new LineOfSight(this);
@@ -24,15 +20,25 @@ package
 		}
 		override public function update():void
 		{
-			if(aggro == 0){
-				randomWalk();
+			if(hasDestination == 0){
+				if(wandering == 1){
+					randomWalk();
+				}
 			}
 			else{
-				
 				this.moveTowards(destination.x, destination.y, FP.elapsed*C.GUARD_SPEED, ["human", "player", "wall"]);
 				
 			}
 		}
+		
+		public override function chargeAttention(poi:Vec2, p:Player):void{
+			super.chargeAttention(poi, p);
+			if(hasDestination == 1){
+				destination = poi;
+				
+			}
+		}
+		
 		override public function render():void
 		{	super.render();
 			lineOfSight.render();

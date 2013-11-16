@@ -8,20 +8,14 @@ package
 	
 	public class Civilian extends Unit
 	{
-		public var hasDestination:int = 0;
 		
-		//0 means listening, 1 means wandering
-		public var wandering:int = 1;
-		
-		//time it takes to transition between listening and wandering
-		public var reflexTime:int = C.REFLEX_TIME;
-		
+	
 		//unhappypoints
 		public var happy_points:int = 0;
 		public var happy_cooldown:int = C.HAPPY_COOLDOWN;	
 		
 		
-		public var destination:Vec2 = new Vec2(200,200);
+	
 		public function Civilian ()
 		{
 			super();
@@ -46,6 +40,22 @@ package
 			
 			
 		}
+		public override function chargeAttention(poi:Vec2, p:Player):void{
+			super.chargeAttention(poi, p);
+			if(hasDestination == 1){
+				destination = poi;
+				increaseHappy();
+				if(happy_points > C.HAPPY_METER_MAX){
+					//the player got a coin
+					p.getCoins(1);
+					
+					hasDestination=0;
+					
+				}
+			}
+		}
+		
+		
 		public function decreaseHappy():void{
 			//I'm happy, I need to wait to become unhappy
 			if(happy_points > C.HAPPY_METER_MAX){
@@ -66,43 +76,6 @@ package
 			}
 		
 		}
-	
-		
-		//charges attention towards a point of interest
-		public function chargeAttention(poi:Vec2,p:Player):void{
-			
-			
-			//the person stops, but does not move towards the destination until the period wears off
-			if(reflexTime >= 0){
-				reflexTime -=1;
-				wandering = 0;
-			}
-			else{
-			
-				hasDestination = 1;
-				
-				destination = poi;
-				increaseHappy();
-				if(happy_points > C.HAPPY_METER_MAX){
-					//the player got a coin
-					p.getCoins(1);
-					
-					hasDestination=0;
-					
-				}
-			}
-				
-		}
-		public function decreaseAttention():void{
-			if(reflexTime < C.REFLEX_TIME){
-			reflexTime += 1;
-				if(reflexTime >=C.REFLEX_TIME){
-					wandering = 1;
-					hasDestination = 0;
-				}
-			}
-		}
-		
 		
 		public function increaseHappy():void{
 			if(happy_points <= C.HAPPY_METER_MAX){

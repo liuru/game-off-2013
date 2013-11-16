@@ -21,12 +21,13 @@ package
 			y = 200;
 			type = "player";
 			setHitbox(C.PLAYER_RADIUS*2, C.PLAYER_RADIUS*2);
+			
+		
 		}
 		
 		override public function update():void
 		{
-			if (Input.mouseDown || Input.check(Key.SPACE)) {
-
+			if (Input.mouseDown) {
 				singing = 1;
 			} else {
 				singing = 0;
@@ -53,7 +54,6 @@ package
 			
 			}
 			
-			Draw.hitbox(this);
 		}
 		
 		

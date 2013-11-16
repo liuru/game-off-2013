@@ -62,23 +62,18 @@ package
 			}
 			
 			for each(var e:Enemy in enemies){
-				
-				
-				
 				loc = new Vec2(e.x, e.y);
 				diff = Vec2.diff(playerP, loc);
 				
 				if(diff.abs() > C.HEARING_RADIUS){
-					e.aggroCooldown -=1;
-					if(e.aggroCooldown < 0){
-						e.aggro = 0;
-					}
+					e.decreaseAttention();
 				}
 				else{
-					e.aggro = 1;
-					e.destination = playerP;
-					e.aggroCooldown = C.AGGRO_COOLDOWN;
+					
+					e.chargeAttention(playerP, player);
+					
 				}
+			
 				
 			}
 		}
