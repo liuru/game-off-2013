@@ -21,7 +21,7 @@ package
 		}
 	 	public function render():void{
 			
-			if(enemy.aggro == 0){
+			if(enemy.hasDestination == 0){
 				var dir:Vec2 = enemy.direction.copy();
 				dir.normalize();
 				
