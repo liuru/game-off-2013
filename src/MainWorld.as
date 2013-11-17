@@ -61,17 +61,25 @@ package
 				}
 			}
 			
+			
+			
 			for each(var e:Enemy in enemies){
-				loc = new Vec2(e.x, e.y);
-				diff = Vec2.diff(playerP, loc);
 				
-				if(diff.abs() > C.HEARING_RADIUS){
-					e.decreaseAttention();
+				if(player.singing == 0){
+					c.decreaseAttention();
 				}
 				else{
+					loc = new Vec2(e.x, e.y);
+					diff = Vec2.diff(playerP, loc);
 					
-					e.chargeAttention(playerP, player);
-					
+					if(diff.abs() > C.HEARING_RADIUS){
+						e.decreaseAttention();
+					}
+					else{
+						
+						e.chargeAttention(playerP, player);
+						
+					}
 				}
 			
 				
