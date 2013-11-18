@@ -26,12 +26,13 @@ package
 			
 			var lvl:Object = LevelLoader.getLevel1();
 			
-//			for(var x: int = 0; x < 20; x++ )
-//			for(var y: int = 0; y < 16; y++ ) {
-//				if(lvl.map[y][x] > 0) {
-//					add(new Wall(x*C.TILE_SIZE, y*C.TILE_SIZE));
-//				}
-//			}
+			for(var x: int = 0; x < 20; x++ ) 
+			for(var y: int = 0; y < 16; y++ ) {
+				trace(y);
+				if(lvl.map[y][x] > 0) {
+					add(new Wall(x*C.TILE_SIZE, y*C.TILE_SIZE));
+				}
+			}
 		}
 		
 		
