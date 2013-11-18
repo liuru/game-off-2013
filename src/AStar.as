@@ -4,13 +4,12 @@ package
 
 	public class AStar
 	{
-		private var curMap;
 		public function AStar()
 		{
-			this.curMap = LevelLoader.getLevel1().map;	
+
 		}
 		
-		public void function search(start:Vec2, goal:Vec2):Vec2{
+		public static function search(start:Vec2, goal:Vec2, curMap):Vec2{
 		
 			var closedset:Array = new Array(curMap.length); // The set of nodes already evaluated.
 			var g_score:Array = [[],[]]; // The set of nodes already evaluated.
@@ -30,7 +29,7 @@ package
 
 			
 			var openset:Array = new Array(start);    // The set of tentative nodes to be evaluated, initially containing the start node
-			var came_from:Dictionay := new Dictionary;    // The map of navigated nodes.
+			var came_from:Dictionary = new Dictionary();    // The map of navigated nodes.
 			
 			g_score[start.x][start.y] = 0    // Cost from start along best known path.
 			// Estimated total cost from start to goal through y.
@@ -66,12 +65,12 @@ package
 			
 		}
 		
-		public function heuristic_cost_estimate(start:Vec2, goal:Vec2):Vec2{
+		public static function heuristic_cost_estimate(start:Vec2, goal:Vec2):Vec2{
 		
 			return (goal.x - start.x)*(goal.x - start.x) + (goal.y - start.y)*(goal.y - start.y);
 		}
 		
-		public function reconstruct_path(came_from:Dictionary, current_node):Array{
+		public static function reconstruct_path(came_from:Dictionary, current_node):Array{
 			if (came_from[current_node] != null){
 				var p:Array = reconstruct_path(came_from, came_from[current_node])
 				p.push(current_node);
@@ -82,14 +81,14 @@ package
 				p.push(current_node);
 				return p;
 			}
-			}
+			
 		}
 		//as the crow flies for now
-		public function dist_between(current,neighbor):int{
+		public static function dist_between(current,neighbor):int{
 			return Math.sqrt((current.x - neighbor.x)*(current.x - neighbor.x) + (current.y - neighbor.y)*(current.y - neighbor.y));
 		}
 		
-		public function contains(openset:Array, neighbor:Vec2):int{
+		public static function contains(openset:Array, neighbor:Vec2):int{
 			for(var n:Vec2 in openset){
 				if(n.x == neighbor.x && n.y == neighbor.y){
 					return 1;
@@ -99,7 +98,7 @@ package
 		}
 		
 		//Refactor this with insertion sort. Currently returns the index of the object with the smallest f_score
-		public function min_f(openset:Array, f_score:Array):int{
+		public static function min_f(openset:Array, f_score:Array):int{
 			var minValue = Infinity;
 			var open:int = -1;
 			for(var i = 0 ; i < openset.length; i++){
@@ -116,14 +115,15 @@ package
 		
 		}
 		
-		public function neighbor_nodes(current:Vec2):Array{
+		public static function neighbor_nodes(current:Vec2, curMap):Array{
 			var neighbors:Array = new Array();
 			
 			for (var i = -1; i < 2; i++){
 				for (var j = -1; j < 2; j++){
 					if(i != current.x && j != current.y){
 						if(inGrid(i, j)){
-							if(this.curMap[i][j] == null){
+							//not a wall
+							if(curMap[i][j] == null){
 								neighbors.add(new Vec2(i, j));
 							}
 						}
@@ -137,8 +137,7 @@ package
 		
 		}
 		
-		public function inGrid(i, j){
+		public static function inGrid(i, j):Boolean{
 			return (i >= 0 && i < C.MAP_TILE_WIDTH && j > 0 && j < C.MAP_TILE_HEIGHT);
 		}
-	}
 }

@@ -33,6 +33,7 @@ package
 					add(new Wall(x*C.TILE_SIZE, y*C.TILE_SIZE));
 				}
 			}
+			new AStar();
 		}
 		
 		
