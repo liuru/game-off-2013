@@ -28,12 +28,12 @@ package
 			
 			for(var x: int = 0; x < 20; x++ ) 
 			for(var y: int = 0; y < 16; y++ ) {
-				trace(y);
+				
 				if(lvl.map[y][x] > 0) {
 					add(new Wall(x*C.TILE_SIZE, y*C.TILE_SIZE));
 				}
 			}
-			new AStar();
+			AStar.search(new Vec2(120, 50), new Vec2(0, 0));
 		}
 		
 		
@@ -68,7 +68,7 @@ package
 			for each(var e:Enemy in enemies){
 				
 				if(player.singing == 0){
-					c.decreaseAttention();
+					e.decreaseAttention();
 				}
 				else{
 					loc = new Vec2(e.x, e.y);

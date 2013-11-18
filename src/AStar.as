@@ -4,22 +4,26 @@ package
 
 	public class AStar
 	{
-		public function AStar()
-		{
-
-		}
-		
-		public static function search(start:Vec2, goal:Vec2, curMap):Vec2{
-		
+		public static function search(s:Vec2, g:Vec2):Path{
+			//turn the sizes into tile size
+			var start:Vec2 = s.copy();
+			var goal:Vec2 = g.copy();
+			start.x = int(start.x/ C.TILE_SIZE);
+			start.y= int(start.y/ C.TILE_SIZE);
+			
+			goal.x = int(goal.x/ C.TILE_SIZE);
+			goal.y = int(goal.y/ C.TILE_SIZE);
+			
+			var curMap:Object = LevelLoader.getLevel1().map;
 			var closedset:Array = new Array(curMap.length); // The set of nodes already evaluated.
 			var g_score:Array = [[],[]]; // The set of nodes already evaluated.
 			var f_score:Array = [[],[]];
 			
-			for(var i=0; i<curMap[0].length; i++) {  
+			for(var i:int = 0; i<curMap[0].length; i++) {  
 				closedset[i] = new Array(curMap[0].length);
 				g_score[i] = new Array(curMap[0].length);
 				f_score[i] = new Array(curMap[0].length);
-				for(var j=0; j<curMap[0]; j++) {   
+				for(var j:int = 0; j<curMap[0].length; j++) {   
 					closedset[i][j] = 0;
 					g_score[i][j] = 0;
 					f_score[i][j] = 0;
@@ -33,20 +37,24 @@ package
 			
 			g_score[start.x][start.y] = 0    // Cost from start along best known path.
 			// Estimated total cost from start to goal through y.
-			f_score[start.x][start.y] = [start.x][start.y] + heuristic_cost_estimate(start, goal);
+			f_score[start.x][start.y] = f_score[start.x][start.y] + heuristic_cost_estimate(start, goal);
 			
 			while(openset.length != 0){
 				var idx:int = min_f(openset, f_score);
 				var current:Vec2 = openset[idx]; // the node in openset having the lowest f_score[] value
 				
 				if (goal.x == current.x && goal.y == current.y){
-					return reconstruct_path(came_from, goal);
+					var p:Array = reconstruct_path(came_from, current);
+					var path:Path = new Path(start, goal, p);
+					return path;
 				}
 				openset.splice(idx, 1); //remove current from openset
 				closedset[current.x][current.y] = 1; //add current to closedset
-				for (var neighbor:Vec2 in neighbor_nodes(current)){
-					var tentative_g_score:int = g_score[current.x][current.y] + dist_between(current,neighbor);
-					var tentative_f_score:int = tentative_g_score + heuristic_cost_estimate(neighbor, goal)
+				var neighbors:Array =  neighbor_nodes(current, curMap);
+				for (i = 0; i < neighbors.length; i++){
+					var neighbor:Vec2 = neighbors[i];
+					var tentative_g_score:Number = g_score[current.x][current.y] + dist_between(current,neighbor);
+					var tentative_f_score:Number = tentative_g_score + heuristic_cost_estimate(neighbor, goal)
 					if (closedset[neighbor.x][neighbor.y] && tentative_f_score >= f_score[neighbor.x][neighbor.y]){
 						continue;
 					}
@@ -55,41 +63,53 @@ package
 						came_from[neighbor] = current;
 						g_score[neighbor.x][neighbor.y] = tentative_g_score;
 						f_score[neighbor.x][neighbor.y] = tentative_f_score;
-						if (contains(openset, neighbor)){
+						if (!contains(openset, neighbor)){
 							openset.push(neighbor);
 						}
 					}
 				}
-				return null;
 			}
+			return null;
 			
 		}
 		
-		public static function heuristic_cost_estimate(start:Vec2, goal:Vec2):Vec2{
+		public static function heuristic_cost_estimate(start:Vec2, goal:Vec2):Number{
 		
-			return (goal.x - start.x)*(goal.x - start.x) + (goal.y - start.y)*(goal.y - start.y);
+			return Vec2.diff(start, goal).abs();
 		}
 		
-		public static function reconstruct_path(came_from:Dictionary, current_node):Array{
+		public static function reconstruct_path(came_from:Dictionary, current_node:Vec2):Array{
+			var p:Array;
 			if (came_from[current_node] != null){
-				var p:Array = reconstruct_path(came_from, came_from[current_node])
-				p.push(current_node);
-				return p;
+				p = reconstruct_path(came_from, came_from[current_node]);
+				var c:Vec2 = current_node.copy();
+				c.x *= C.TILE_SIZE;
+				c.x += C.TILE_SIZE/2;
+				c.y *= C.TILE_SIZE;
+				c.y += C.TILE_SIZE/2;
+				p.push(c);
 			}
 			else{
-				var p:Array = new Array();	
-				p.push(current_node);
-				return p;
+				p = new Array();	
+				var cp:Vec2 = current_node.copy();
+				cp.x *= C.TILE_SIZE;
+				cp.y *= C.TILE_SIZE;
+				cp.x += C.TILE_SIZE/2;
+				cp.y += C.TILE_SIZE/2;
+				p.push(cp);
 			}
-			
+			return p;
+				
 		}
+		
 		//as the crow flies for now
-		public static function dist_between(current,neighbor):int{
-			return Math.sqrt((current.x - neighbor.x)*(current.x - neighbor.x) + (current.y - neighbor.y)*(current.y - neighbor.y));
+		public static function dist_between(current:Vec2, neighbor:Vec2):int{
+			return Vec2.diff(current, neighbor).abs();
 		}
 		
 		public static function contains(openset:Array, neighbor:Vec2):int{
-			for(var n:Vec2 in openset){
+			for(var i:int = 0; i < openset.length;i++){
+				var n:Vec2 = openset[i];
 				if(n.x == neighbor.x && n.y == neighbor.y){
 					return 1;
 				}
@@ -99,10 +119,10 @@ package
 		
 		//Refactor this with insertion sort. Currently returns the index of the object with the smallest f_score
 		public static function min_f(openset:Array, f_score:Array):int{
-			var minValue = Infinity;
+			var minValue:int = 10000;
 			var open:int = -1;
-			for(var i = 0 ; i < openset.length; i++){
-				var pos = openset[i];
+			for(var i:int = 0 ; i < openset.length; i++){
+				var pos:Vec2 = openset[i];
 				if (f_score[pos.x][pos.y] < minValue){
 				
 					minValue = f_score[pos.x][pos.y];
@@ -111,21 +131,22 @@ package
 			
 			}
 			
-			return i;
+			return open;
 		
 		}
 		
-		public static function neighbor_nodes(current:Vec2, curMap):Array{
+		public static function neighbor_nodes(c:Vec2, curMap:Object):Array{
 			var neighbors:Array = new Array();
-			
-			for (var i = -1; i < 2; i++){
-				for (var j = -1; j < 2; j++){
-					if(i != current.x && j != current.y){
+			var current:Vec2 = c.copy();
+			for (var i:int = -1 + c.x; i < 2 + c.x; i++){
+				for (var j:int = -1 + c.y; j < 2 + c.y; j++){
+					if(!(i == current.x && j == current.y)){
 						if(inGrid(i, j)){
 							//not a wall
-							if(curMap[i][j] == null){
-								neighbors.add(new Vec2(i, j));
+							if(curMap[i][j] == 0){
+								neighbors.push(new Vec2(i, j));
 							}
+						
 						}
 					}
 					
@@ -137,7 +158,8 @@ package
 		
 		}
 		
-		public static function inGrid(i, j):Boolean{
-			return (i >= 0 && i < C.MAP_TILE_WIDTH && j > 0 && j < C.MAP_TILE_HEIGHT);
+		public static function inGrid(i:int, j:int):Boolean{
+			return (j >= 0 && j < C.MAP_WIDTH/C.TILE_SIZE && i >= 0 && i < C.MAP_HEIGHT/C.TILE_SIZE);
 		}
-}
+	}
+}	

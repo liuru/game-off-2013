@@ -26,14 +26,33 @@ package
 				}
 			}
 			else{
-				this.moveTowards(destination.x, destination.y, FP.elapsed*C.GUARD_SPEED, ["human", "player", "wall"]);
-				
+				if(path !=null){
+					if(!path.isDone()){
+						path.updateIndex(new Vec2(x, y));
+						this.moveTowards(path.curX, path.curY, FP.elapsed*C.GUARD_SPEED, ["human", "player", "wall"]);
+						
+					}
+				}
+				else{
+					this.moveTowards(destination.x, destination.y, FP.elapsed*C.GUARD_SPEED, ["human", "player", "wall"]);
+				}
 			}
+			
 		}
 		
 		public override function chargeAttention(poi:Vec2, p:Player):void{
 			super.chargeAttention(poi, p);
 			if(hasDestination == 1){
+				if(path != null ){
+					if(!path.isDestination(poi)){
+						path = AStar.search(new Vec2(this.x, this.y), poi);
+					}
+				}
+				else{
+					
+					path = AStar.search(new Vec2(this.x, this.y), poi);
+				}
+				
 				destination = poi;
 				
 			}

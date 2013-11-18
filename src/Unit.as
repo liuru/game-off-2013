@@ -20,10 +20,11 @@ package
 		//time it takes to transition between listening and wandering
 		public var reflexTime:int = C.REFLEX_TIME;
 		
+		public var path:Path;
+		
 		public var destination:Vec2 = new Vec2(200,200);
 		
-		public function Unit() 
-		{
+		public function Unit() {
 			direction = new Vec2(1, 0);
 			type = "human"
 			this.setHitbox(C.PLAYER_RADIUS*2, C.PLAYER_RADIUS*2);
@@ -88,6 +89,13 @@ package
 		
 		public override function render():void{
 			super.render();
+			if(hasDestination == 1){
+				if(path!=null){
+					for(var i:int= 1; i < path.interPoints.length;i++){
+						Draw.line(path.interPoints[i].x, path.interPoints[i].y, path.interPoints[i-1].x, path.interPoints[i-1].y);
+					}
+				}
+			}
 			Draw.hitbox(this);
 		}
 		
