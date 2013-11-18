@@ -8,11 +8,11 @@ package
 			//turn the sizes into tile size
 			var start:Vec2 = s.copy();
 			var goal:Vec2 = g.copy();
-			start.x = int(start.x/ C.TILE_SIZE);
-			start.y= int(start.y/ C.TILE_SIZE);
+			start.x = Math.min(int(start.x/ C.TILE_SIZE), C.MAP_WIDTH/C.TILE_SIZE);
+			start.y= Math.min(int(start.y/ C.TILE_SIZE), C.MAP_WIDTH/C.TILE_SIZE);
 			
-			goal.x = int(goal.x/ C.TILE_SIZE);
-			goal.y = int(goal.y/ C.TILE_SIZE);
+			goal.x = Math.min(int(goal.x/ C.TILE_SIZE), C.MAP_HEIGHT/C.TILE_SIZE);
+			goal.y = Math.min(int(goal.y/ C.TILE_SIZE),  C.MAP_HEIGHT/C.TILE_SIZE);
 			
 			var curMap:Object = LevelLoader.getLevel1().map;
 			var closedset:Array = new Array(curMap.length); // The set of nodes already evaluated.
@@ -143,7 +143,7 @@ package
 					if(!(i == current.x && j == current.y)){
 						if(inGrid(i, j)){
 							//not a wall
-							if(curMap[i][j] == 0){
+							if(curMap[j][i] == 0){
 								neighbors.push(new Vec2(i, j));
 							}
 						
@@ -159,7 +159,7 @@ package
 		}
 		
 		public static function inGrid(i:int, j:int):Boolean{
-			return (j >= 0 && j < C.MAP_WIDTH/C.TILE_SIZE && i >= 0 && i < C.MAP_HEIGHT/C.TILE_SIZE);
+			return (i >= 0 && i < C.MAP_WIDTH/C.TILE_SIZE && j >= 0 && j < C.MAP_HEIGHT/C.TILE_SIZE);
 		}
 	}
 }	
