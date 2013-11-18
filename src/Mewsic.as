@@ -8,10 +8,12 @@ package
 		public function Mewsic()
 		{
 			super(C.GAME_WIDTH, C.GAME_HEIGHT, 60, false);
+			FP.screen.scale = 2;
 			FP.world = new MainWorld;
-			INSTANCE = this;
+		
 		}
 		
+
 		override public function init():void
 		{
 			

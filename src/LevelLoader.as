@@ -2,7 +2,7 @@ package
 {
 	import flash.utils.ByteArray;
 	
-	public class Level
+	public class LevelLoader
 	{
 		
 		[Embed(source="res/level1.json", mimeType="application/octet-stream")]

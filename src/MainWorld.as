@@ -24,14 +24,14 @@ package
 				civilians.push(this.add(new Civilian()));
 			}
 			
-			var lvl = Level.getLevel1();
+			var lvl:Object = LevelLoader.getLevel1();
 			
-			for(var x: int = 0; x < C.GAME_WIDTH / C.TILE_SIZE; x++ )
-			for(var y: int = 0; y < C.GAME_HEIGHT / C.TILE_SIZE; y++ ) {
-				if(lvl.map[y][x] > 0) {
-					add(new Wall(x*C.TILE_SIZE, y*C.TILE_SIZE));
-				}
-			}
+//			for(var x: int = 0; x < 20; x++ )
+//			for(var y: int = 0; y < 16; y++ ) {
+//				if(lvl.map[y][x] > 0) {
+//					add(new Wall(x*C.TILE_SIZE, y*C.TILE_SIZE));
+//				}
+//			}
 		}
 		
 		

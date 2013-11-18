@@ -7,7 +7,7 @@ package
 		private var curMap;
 		public function AStar()
 		{
-			this.curMap = Level.getLevel1().map;	
+			this.curMap = LevelLoader.getLevel1().map;	
 		}
 		
 		public void function search(start:Vec2, goal:Vec2):Vec2{

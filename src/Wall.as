@@ -7,7 +7,7 @@ package
 		public function Wall(x:int, y:int) {
 			this.x = x;
 			this.y = y;
-			this.setHitbox(20, 20);
+			this.setHitbox(16, 16);
 			this.type = "wall";
 		}
 		override public function render():void {
