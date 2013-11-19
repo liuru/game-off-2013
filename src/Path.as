@@ -16,7 +16,7 @@ package
 		//we say this when a function is close enough to the destination to be called the destination
 		public function isDestination(pos:Vec2):Boolean{
 			var diff:Vec2 = Vec2.diff(pos, interPoints[interPoints.length-1]);
-			if(diff.abs() < C.CLOSE_ENOUGH*3){
+			if(diff.abs() < C.CLOSE_ENOUGH*5){
 				return true;
 			}
 			return false;
