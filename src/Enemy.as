@@ -32,6 +32,10 @@ package
 						this.moveTowards(path.curX, path.curY, FP.elapsed*C.GUARD_SPEED, ["human", "player", "wall"]);
 						
 					}
+					else{
+						this.moveTowards(path.curX, path.curY, FP.elapsed*C.GUARD_SPEED, ["human", "player", "wall"]);
+						
+					}
 				}
 				else{
 					this.moveTowards(destination.x, destination.y, FP.elapsed*C.GUARD_SPEED, ["human", "player", "wall"]);

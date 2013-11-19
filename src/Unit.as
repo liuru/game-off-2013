@@ -72,7 +72,7 @@ package
 				wandering = 0;
 			}
 			else{
-				
+				reflexTime = 0;
 				hasDestination = 1;
 			}
 			
@@ -80,16 +80,19 @@ package
 		public function decreaseAttention():void{
 			if(reflexTime < C.REFLEX_TIME){
 				reflexTime += 1;
+				
+				hasDestination = 0;
+				wandering = 0;
 				if(reflexTime >=C.REFLEX_TIME){
 					wandering = 1;
-					hasDestination = 0;
+					reflexTime = C.REFLEX_TIME;
 				}
 			}
 		}
 		
 		public override function render():void{
 			super.render();
-			if(hasDestination == 1){
+			if(wandering == 0){
 				if(path!=null){
 					for(var i:int= 1; i < path.interPoints.length;i++){
 						Draw.line(path.interPoints[i].x, path.interPoints[i].y, path.interPoints[i-1].x, path.interPoints[i-1].y);

@@ -39,7 +39,7 @@ package
 		//how long police will follow you 
 		public static var AGGRO_COOLDOWN:int = 50;
 		
-		public static var CLOSE_ENOUGH:int = 10;
+		public static var CLOSE_ENOUGH:int = 5;
 		
 	}
 }

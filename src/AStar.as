@@ -8,11 +8,11 @@ package
 			//turn the sizes into tile size
 			var start:Vec2 = s.copy();
 			var goal:Vec2 = g.copy();
-			start.x = Math.min(int(start.x/ C.TILE_SIZE), C.MAP_WIDTH/C.TILE_SIZE);
-			start.y= Math.min(int(start.y/ C.TILE_SIZE), C.MAP_WIDTH/C.TILE_SIZE);
+			start.x = Math.min(int(start.x/ C.TILE_SIZE), C.MAP_WIDTH/C.TILE_SIZE - 1);
+			start.y= Math.min(int(start.y/ C.TILE_SIZE), C.MAP_WIDTH/C.TILE_SIZE - 1);
 			
-			goal.x = Math.min(int(goal.x/ C.TILE_SIZE), C.MAP_HEIGHT/C.TILE_SIZE);
-			goal.y = Math.min(int(goal.y/ C.TILE_SIZE),  C.MAP_HEIGHT/C.TILE_SIZE);
+			goal.x = Math.min(int(goal.x/ C.TILE_SIZE), C.MAP_HEIGHT/C.TILE_SIZE - 1);
+			goal.y = Math.min(int(goal.y/ C.TILE_SIZE),  C.MAP_HEIGHT/C.TILE_SIZE - 1);
 			
 			var curMap:Object = LevelLoader.getLevel1().map;
 			var closedset:Array = new Array(curMap.length); // The set of nodes already evaluated.
@@ -45,7 +45,7 @@ package
 				
 				if (goal.x == current.x && goal.y == current.y){
 					var p:Array = reconstruct_path(came_from, current);
-					var path:Path = new Path(start, goal, p);
+					var path:Path = new Path(p);
 					return path;
 				}
 				openset.splice(idx, 1); //remove current from openset
@@ -74,7 +74,6 @@ package
 		}
 		
 		public static function heuristic_cost_estimate(start:Vec2, goal:Vec2):Number{
-		
 			return Vec2.diff(start, goal).abs();
 		}
 		
@@ -84,9 +83,9 @@ package
 				p = reconstruct_path(came_from, came_from[current_node]);
 				var c:Vec2 = current_node.copy();
 				c.x *= C.TILE_SIZE;
-				c.x += C.TILE_SIZE/2;
+				c.x += 1;
 				c.y *= C.TILE_SIZE;
-				c.y += C.TILE_SIZE/2;
+				c.y += 1;
 				p.push(c);
 			}
 			else{
@@ -94,16 +93,15 @@ package
 				var cp:Vec2 = current_node.copy();
 				cp.x *= C.TILE_SIZE;
 				cp.y *= C.TILE_SIZE;
-				cp.x += C.TILE_SIZE/2;
-				cp.y += C.TILE_SIZE/2;
+				cp.x += 1;
+				cp.y += 1;
 				p.push(cp);
 			}
 			return p;
 				
 		}
-		
 		//as the crow flies for now
-		public static function dist_between(current:Vec2, neighbor:Vec2):int{
+		public static function dist_between(current:Vec2, neighbor:Vec2):Number{
 			return Vec2.diff(current, neighbor).abs();
 		}
 		
@@ -124,13 +122,10 @@ package
 			for(var i:int = 0 ; i < openset.length; i++){
 				var pos:Vec2 = openset[i];
 				if (f_score[pos.x][pos.y] < minValue){
-				
 					minValue = f_score[pos.x][pos.y];
 					open = i;
 				}
-			
 			}
-			
 			return open;
 		
 		}
@@ -146,14 +141,10 @@ package
 							if(curMap[j][i] == 0){
 								neighbors.push(new Vec2(i, j));
 							}
-						
 						}
 					}
-					
 				}
-			
 			}
-			
 			return neighbors;
 		
 		}
