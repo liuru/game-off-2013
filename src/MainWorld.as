@@ -13,9 +13,7 @@ package
 		internal var enemies:Array = [];
 		internal var player:Player;
 		internal var counter:int = 0;
-		
-		[Embed(source = "res/circle_gradient.png")]
-		public static const SPR_LIGHT_CIRCLE_GRADIENT:Class;
+	
 		
 		public var lighting:Lighting;
 		public var playerLight:Light;
@@ -24,11 +22,10 @@ package
 		{
 			FP.console.enable();
 			
-			var sprcircle:Image = new Image(SPR_LIGHT_CIRCLE_GRADIENT);
-			sprcircle.centerOrigin();
+
 			
 			add(lighting = new Lighting(FP.screen.width, FP.screen.height));
-			lighting.add(playerLight = new Light(0, 0, sprcircle, 2, 0.8));
+			lighting.add(playerLight = new Light(0, 0, C.SPR_LIGHT_CIRCLE_GRADIENT_IMG, 2, 0.8));
 			
 			player = new Player();
 		
@@ -38,7 +35,9 @@ package
 				enemies.push(this.add(new Enemy()));
 			}
 			for(i = 0; i < 9; i++){
-				civilians.push(this.add(new Civilian()));
+				var civ:Civilian = new Civilian();
+				lighting.add(civ.light);
+				civilians.push(this.add(civ));
 			}
 			
 			var lvl:Object = LevelLoader.getLevel1();

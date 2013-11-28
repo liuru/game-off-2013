@@ -1,5 +1,7 @@
 package
 {
+	import lit.*;
+	
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.Graphic;
@@ -9,12 +11,11 @@ package
 	public class Civilian extends Unit
 	{
 		
-	
 		//unhappypoints
 		public var happy_points:int = 0;
-		public var happy_cooldown:int = C.HAPPY_COOLDOWN;	
+		public var happy_cooldown:int = C.HAPPY_COOLDOWN;
 		
-		
+		public var light:Light;
 	
 		public function Civilian ()
 		{
@@ -23,6 +24,7 @@ package
 			y = FP.rand(C.MAP_HEIGHT);
 			setHitbox(C.PLAYER_RADIUS*2, C.PLAYER_RADIUS*2);
 			this.speed = C.CIVILLIAN_SPEED;
+			this.light = new Light(0, 0, C.SPR_LIGHT_CIRCLE_GRADIENT_IMG, 1, 0.8);
 			
 		}
 		override public function update():void
@@ -36,9 +38,11 @@ package
 				moveTowardsDest();
 			}
 			
+			light.alpha = happy_points / C.HAPPY_METER_MAX;
+			FP.log(light.alpha);
+			light.x = this.x;
+			light.y = this.y;
 			decreaseHappy();
-			
-			
 		}
 		public override function chargeAttention(poi:Vec2, p:Player):void{
 			super.chargeAttention(poi, p);
@@ -49,8 +53,7 @@ package
 					//the player got a coin
 					p.getCoins(1);
 					
-					hasDestination=0;
-					
+					hasDestination=0;	
 				}
 			}
 		}

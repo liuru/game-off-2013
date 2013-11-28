@@ -1,5 +1,7 @@
 package
 {
+	import net.flashpunk.graphics.Image;
+
 	public class C
 	{
 		
@@ -40,6 +42,13 @@ package
 		public static var AGGRO_COOLDOWN:int = 50;
 		
 		public static var CLOSE_ENOUGH:int = 5;
+		
+		
+		// some global graphics
+		[Embed(source = "res/circle_gradient.png")]
+		public static const SPR_LIGHT_CIRCLE_GRADIENT:Class;
+		public static var SPR_LIGHT_CIRCLE_GRADIENT_IMG:Image = new Image(SPR_LIGHT_CIRCLE_GRADIENT);
+		SPR_LIGHT_CIRCLE_GRADIENT_IMG.centerOrigin();
 		
 	}
 }
