@@ -83,9 +83,7 @@ package
 				p = reconstruct_path(came_from, came_from[current_node]);
 				var c:Vec2 = current_node.copy();
 				c.x *= C.TILE_SIZE;
-				c.x += 1;
 				c.y *= C.TILE_SIZE;
-				c.y += 1;
 				p.push(c);
 			}
 			else{
@@ -93,8 +91,6 @@ package
 				var cp:Vec2 = current_node.copy();
 				cp.x *= C.TILE_SIZE;
 				cp.y *= C.TILE_SIZE;
-				cp.x += 1;
-				cp.y += 1;
 				p.push(cp);
 			}
 			return p;
