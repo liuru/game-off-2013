@@ -5,6 +5,7 @@ package
 	import net.flashpunk.FP;
 	import net.flashpunk.World;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.graphics.Text;
 	
 	public class MainWorld extends World
 	{
@@ -14,18 +15,21 @@ package
 		internal var player:Player;
 		internal var counter:int = 0;
 	
-		
 		public var lighting:Lighting;
 		public var playerLight:Light;
+		
+		private var scoreText:ScoreText;
 		
 		public function MainWorld()
 		{
 			FP.console.enable();
 			
-
 			
 			add(lighting = new Lighting(FP.screen.width, FP.screen.height));
 			lighting.add(playerLight = new Light(0, 0, C.SPR_LIGHT_CIRCLE_GRADIENT_IMG, 2, 0.8));
+			add(scoreText = new ScoreText());
+			scoreText.x = 20;
+			scoreText.y = 20;
 			
 			player = new Player();
 		
@@ -44,7 +48,6 @@ package
 			
 			for(var x: int = 0; x < 20; x++ ) 
 			for(var y: int = 0; y < 16; y++ ) {
-				
 				if(lvl.map[y][x] > 0) {
 					add(new Wall(x*C.TILE_SIZE, y*C.TILE_SIZE));
 				}
@@ -55,7 +58,8 @@ package
 		
 		override public function update():void
 		{
-			super.update();
+			super.update();	
+			scoreText.setScore(player.coins);
 			
 			counter++;
 			var playerP:Vec2 = new Vec2(player.x, player.y);
