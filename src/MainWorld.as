@@ -1,7 +1,10 @@
 package
 {
+	import lit.*;
+	
 	import net.flashpunk.FP;
 	import net.flashpunk.World;
+	import net.flashpunk.graphics.Image;
 	
 	public class MainWorld extends World
 	{
@@ -10,11 +13,25 @@ package
 		internal var enemies:Array = [];
 		internal var player:Player;
 		internal var counter:int = 0;
+		
+		[Embed(source = "res/circle_gradient.png")]
+		public static const SPR_LIGHT_CIRCLE_GRADIENT:Class;
+		
+		public var lighting:Lighting;
+		public var playerLight:Light;
+		
 		public function MainWorld()
 		{
 			FP.console.enable();
 			
+			var sprcircle:Image = new Image(SPR_LIGHT_CIRCLE_GRADIENT);
+			sprcircle.centerOrigin();
+			
+			add(lighting = new Lighting(FP.screen.width, FP.screen.height));
+			lighting.add(playerLight = new Light(0, 0, sprcircle, 2, 0.8));
+			
 			player = new Player();
+		
 			add(player);
 			
 			for(var i:int = 0; i < 2; i++){
@@ -44,7 +61,6 @@ package
 			counter++;
 			var playerP:Vec2 = new Vec2(player.x, player.y);
 			for each(var c:Civilian in civilians){
-				
 				if(player.singing == 0){
 					c.decreaseAttention();
 				}
@@ -64,9 +80,7 @@ package
 			}
 			
 			
-			
-			for each(var e:Enemy in enemies){
-				
+			for each(var e:Enemy in enemies){	
 				if(player.singing == 0){
 					e.decreaseAttention();
 				}
@@ -78,14 +92,14 @@ package
 						e.decreaseAttention();
 					}
 					else{
-						
 						e.chargeAttention(playerP, player);
-						
 					}
-				}
-			
-				
+				}	
 			}
+			
+			playerLight.x = player.x;
+			playerLight.y = player.y;
+		 
 		}
 	}
 }

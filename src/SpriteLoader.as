@@ -5,6 +5,9 @@ package
 	public class SpriteLoader
 	{
 		
+		
+		
+		
 		[Embed(source = 'res/spritesheet.png')]
 		private static const SPRITESHEET:Class;
 		private static const WIDTH:int=16;

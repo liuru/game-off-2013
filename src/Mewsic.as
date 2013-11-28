@@ -10,7 +10,6 @@ package
 			super(C.GAME_WIDTH, C.GAME_HEIGHT, 60, false);
 			FP.screen.scale = 2;
 			FP.world = new MainWorld;
-		
 		}
 		
 
