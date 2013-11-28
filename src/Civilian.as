@@ -38,10 +38,10 @@ package
 				moveTowardsDest();
 			}
 			
-			light.alpha = happy_points / C.HAPPY_METER_MAX;
+			light.alpha = Math.max(happy_points / C.HAPPY_METER_MAX, 0.1);
 			FP.log(light.alpha);
-			light.x = this.x;
-			light.y = this.y;
+			light.x = this.x + C.TILE_HALF;
+			light.y = this.y + C.TILE_HALF;
 			decreaseHappy();
 		}
 		public override function chargeAttention(poi:Vec2, p:Player):void{

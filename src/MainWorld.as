@@ -24,9 +24,8 @@ package
 		{
 			FP.console.enable();
 			
-			
 			add(lighting = new Lighting(FP.screen.width, FP.screen.height));
-			lighting.add(playerLight = new Light(0, 0, C.SPR_LIGHT_CIRCLE_GRADIENT_IMG, 2, 0.8));
+			lighting.add(playerLight = new Light(0, 0, C.SPR_LIGHT_CIRCLE_GRADIENT_IMG, 1, 0.8));
 			add(scoreText = new ScoreText());
 			scoreText.x = 20;
 			scoreText.y = 20;
@@ -100,8 +99,8 @@ package
 				}	
 			}
 			
-			playerLight.x = player.x;
-			playerLight.y = player.y;
+			playerLight.x = player.x + C.TILE_HALF;
+			playerLight.y = player.y + C.TILE_HALF;
 		 
 		}
 	}
