@@ -19,6 +19,7 @@ package
 		public var playerLight:Light;
 		
 		private var scoreText:ScoreText;
+
 		
 		public function MainWorld()
 		{
@@ -27,6 +28,11 @@ package
 			add(lighting = new Lighting(FP.screen.width, FP.screen.height));
 			lighting.add(playerLight = new Light(0, 0, C.SPR_LIGHT_CIRCLE_GRADIENT_IMG, 1, 0.8));
 			add(scoreText = new ScoreText());
+			
+			var lightning:Lightning = new Lightning();
+			add(lightning);
+			lighting.add(lightning.light);
+			
 			scoreText.x = 20;
 			scoreText.y = 20;
 			

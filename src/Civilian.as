@@ -39,7 +39,6 @@ package
 			}
 			
 			light.alpha = Math.max(happy_points / C.HAPPY_METER_MAX, 0.1);
-			FP.log(light.alpha);
 			light.x = this.x + C.TILE_HALF;
 			light.y = this.y + C.TILE_HALF;
 			decreaseHappy();
@@ -52,7 +51,6 @@ package
 				if(happy_points > C.HAPPY_METER_MAX){
 					//the player got a coin
 					p.getCoins(1);
-					
 					hasDestination=0;	
 				}
 			}
