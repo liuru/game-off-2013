@@ -29,7 +29,7 @@ package
 			lighting.add(playerLight = new Light(0, 0, C.SPR_LIGHT_CIRCLE_GRADIENT_IMG, 1, 0.8));
 			add(scoreText = new ScoreText());
 			
-			var lightning:Lightning = new Lightning();
+			var lightning:Weather = new Weather();
 			add(lightning);
 			lighting.add(lightning.light);
 			

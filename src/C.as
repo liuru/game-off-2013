@@ -7,6 +7,7 @@ package
 		
 		public static var GAME_WIDTH:int = 20 * 16;
 		public static var GAME_HEIGHT:int = 16 * 16;
+
 		public static var TILE_SIZE:int = 16;
 		public static var TILE_HALF:int = TILE_SIZE/2;
 
