@@ -53,6 +53,10 @@ package
 		public static var SPR_LIGHT_CIRCLE_GRADIENT_IMG:Image = new Image(SPR_LIGHT_CIRCLE_GRADIENT);
 		SPR_LIGHT_CIRCLE_GRADIENT_IMG.centerOrigin();
 		
+		// main music piece
+		[Embed(source = "res/in-time.mp3")]
+		public static const BGM_CLASS:Class;
+		public static var BGM:Sfx = new Sfx(BGM_CLASS);
 
 	}
 }

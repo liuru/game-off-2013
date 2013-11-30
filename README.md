@@ -1,5 +1,7 @@
 # Mewsic
 
+Currently unfinished -- needs some polish :)
+
 ## About
 
 You're a cat, and you're composing your grand masterpiece on the fencetop; avoid the police and perform as long as you can to get spare change. Use the money to buy better equipment and make more change from your performances.
@@ -16,3 +18,4 @@ The project is a Flash Builder project -- open, compile, and run.
 
 * [Heavy Rain Loop](http://www.freesound.org/people/D%20W/sounds/136971/) - By D W, Under CC 3.0 Attribution
 * [Thunder_close_Boem](http://www.freesound.org/people/hantorio/sounds/121946/) - By hantorio, Under CC 3.0 Attribution.
+* [In Time](http://www.newgrounds.com/audio/listen/549244) by drumdude, Under Attribution-NonCommercial-ShareAlike 3.0 Unported

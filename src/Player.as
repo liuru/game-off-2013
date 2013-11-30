@@ -5,6 +5,7 @@ package
 	import net.flashpunk.Graphic;
 	import net.flashpunk.Mask;
 	import net.flashpunk.graphics.Spritemap;
+	import net.flashpunk.tweens.sound.SfxFader;
 	import net.flashpunk.utils.Draw;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
@@ -16,6 +17,7 @@ package
 		public var singing:int;
 		public var coins: int;
 		private var sm:Spritemap;
+		private var fader:SfxFader;
 		
 		public function Player() {
 			x = 4 * 16;
@@ -24,6 +26,10 @@ package
 			setHitbox(C.PLAYER_RADIUS*2, C.PLAYER_RADIUS*2);
 			this.sm = SpriteLoader.getPlayerSpriteMap();
 			this.graphic = this.sm;
+			
+			C.BGM.loop(0.0);
+			fader = new SfxFader(C.BGM);
+			addTween(fader);
 		}
 		
 		override public function update():void {
@@ -32,12 +38,15 @@ package
 			}
 			
 			if (Input.mouseDown) {
+				if(singing == 0) {
+					fader.fadeTo(1.0, 2);
+				}
 				singing = 1;
 			} else {
+				if(singing == 1) fader.fadeTo(0.0, 0.5);
 				singing = 0;
 			}
 			if(singing == 0) {
-				
 				var targetX:int = FP.world.mouseX - 8;
 				var targetY:int = FP.world.mouseY - 8;
 				
