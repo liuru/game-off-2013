@@ -10,4 +10,9 @@ You're a cat, and you're composing your grand masterpiece on the fencetop; avoid
 
 ## To build
 
-Open project in Flash Builder compile.
+The project is a Flash Builder project -- open, compile, and run.
+
+## Attributions
+
+* [Heavy Rain Loop](http://www.freesound.org/people/D%20W/sounds/136971/) - By D W, Under CC 3.0 Attribution
+* [Thunder_close_Boem](http://www.freesound.org/people/hantorio/sounds/121946/) - By hantorio, Under CC 3.0 Attribution.

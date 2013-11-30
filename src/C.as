@@ -1,5 +1,6 @@
 package
 {
+	import net.flashpunk.Sfx;
 	import net.flashpunk.graphics.Image;
 
 	public class C
@@ -52,5 +53,6 @@ package
 		public static var SPR_LIGHT_CIRCLE_GRADIENT_IMG:Image = new Image(SPR_LIGHT_CIRCLE_GRADIENT);
 		SPR_LIGHT_CIRCLE_GRADIENT_IMG.centerOrigin();
 		
+
 	}
 }
